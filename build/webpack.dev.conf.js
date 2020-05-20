@@ -1,25 +1,35 @@
-var utils = require('./utils')
-var webpack = require('webpack')
-var config = require('../config')
-var merge = require('webpack-merge')
-var baseWebpackConfig = require('./webpack.base.conf')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var utils = require("./utils");
+var webpack = require("webpack");
+var config = require("../config");
+var merge = require("webpack-merge");
+var baseWebpackConfig = require("./webpack.base.conf");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
+var FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
+const MemoryFS = require("memory-fs");
+const fs = new MemoryFS();
+const compiler = webpack(baseWebpackConfig, function () {});
+compiler.outputFileSystem = fs;
+compiler.run((err, stats) => {
+  // Read the output later:
+  // const content = fs.readFileSync("...");
+  console.log(111,stats);
+});
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-  baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
-})
-
+  baseWebpackConfig.entry[name] = ["./build/dev-client"].concat(
+    baseWebpackConfig.entry[name]
+  );
+});
 module.exports = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
+    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap }),
   },
   // cheap-module-eval-source-map is faster for development
-  devtool: '#cheap-module-eval-source-map',
+  devtool: "#cheap-module-eval-source-map",
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': config.dev.env
+      "process.env": config.dev.env,
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
@@ -36,6 +46,16 @@ module.exports = merge(baseWebpackConfig, {
     //   inject: true,
     //   chunks:['one']
     // }),
-    new FriendlyErrorsPlugin()
-  ].concat(utils.htmlPlugin())
-})
+    new FriendlyErrorsPlugin(),
+  ].concat(utils.htmlPlugin()),
+  watch: true,
+  devServer: {
+    historyApiFallback: {
+      verbose: true,
+      rewrites: [
+        { from: /^\/index\/.*$/, to: '/index.html'},
+        {from: /^\/one\/.*$/, to: '/one.html'}
+      ]
+    }
+  }
+});

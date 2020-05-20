@@ -1,5 +1,6 @@
 <template>
   <div id="one">
+    <div>hh </div>
     <section class="preview">
       <!-- 预览视图 -->
       <div ref="preview" class="preview-area">

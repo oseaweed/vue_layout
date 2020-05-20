@@ -22,7 +22,7 @@ export default new Router({
       component: require("@/components/preview_mobile"),
     },
     // {
-    //   path: "/one/preview/pc/", //正常pc浏览
+    //   path: "/preview/pc/", //正常pc浏览
     //   name: "preview_product",
     //   component: () => import("@/pages/test/one.vue"),
     // },

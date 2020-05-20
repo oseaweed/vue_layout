@@ -1,5 +1,7 @@
 import Vue from 'vue'
-import preview from './one.vue'
+// import preview from './one.vue'
+import One from './index.vue'
+
 import store from '../../store'
 import router from '../../router/one'
 //Muse-UI
@@ -18,6 +20,6 @@ window._Vue = new Vue({
   store,
   router,
   template: '<One/>',
-  components: { preview }
+  components: { One }
   // render: h => h(preview)
 })

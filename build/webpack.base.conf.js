@@ -67,4 +67,6 @@ module.exports = {
   //   // that does not make sense for the client
   //   fs: "empty",
   // },
+  //只有开启监听模式时，watchOptions才有意义
+
 };
