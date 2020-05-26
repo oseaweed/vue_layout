@@ -1,6 +1,6 @@
 <template>
   <div id="one">
-    <div>hh </div>
+    <div>hh</div>
     <section class="preview">
       <!-- 预览视图 -->
       <div ref="preview" class="preview-area">
@@ -29,7 +29,7 @@ export default {
       query.get(id).then(share => {
         let store = share.get("store");
         if (store) {
-          this.$store.commit("setState", store);
+          _Vue.$store.commit("setState", store);
           //dom没有渲染完成 window._Vue为undefined，加个延迟
           setTimeout(() => {
             this.mount();
@@ -39,7 +39,7 @@ export default {
     } else if (localStorage.store) {
       //读取本地数据
       let store = JSON.parse(localStorage.store);
-      this.$store.commit("setState", store);
+      _Vue.$store.commit("setState", store);
       //dom没有渲染完成 window._Vue为undefined，加个延迟
       setTimeout(() => {
         this.mount();
@@ -50,13 +50,13 @@ export default {
     components: {
       //组件树 ，预览视图中所有组件
       get() {
-        return this.$store.state.components;
+        return _Vue.$store.state.components;
       }
     },
     current: {
       //当前选中组件
       get() {
-        return this.$store.state.currentComponent;
+        return _Vue.$store.state.currentComponent;
       }
     }
   },
@@ -74,7 +74,7 @@ export default {
         });
     },
     addUserStyle() {
-      if (!this.$store.state.css) return;
+      if (!_Vue.$store.state.css) return;
       //添加用户编辑的css效果到预览视图
       let style = document.getElementById("custom-layout");
       if (!style) {
@@ -84,7 +84,7 @@ export default {
         style.type = "text/css";
         this.$refs.preview.appendChild(style);
       }
-      let cssText = document.createTextNode(this.$store.state.css);
+      let cssText = document.createTextNode(_Vue.$store.state.css);
       style.innerHTML = "";
       style.appendChild(cssText);
       // 动态添加scoped style

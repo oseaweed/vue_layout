@@ -283,10 +283,10 @@ export default {
   computed: {
     activeUI: {
       get() {
-        return this.$store.state.activeUI;
+        return _Vue.$store.state.activeUI;
       },
       set(val) {
-        this.$store.commit("setState", {
+        _Vue.$store.commit("setState", {
           activeUI: val
         });
       }

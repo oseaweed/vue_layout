@@ -12,7 +12,7 @@ compiler.outputFileSystem = fs;
 compiler.run((err, stats) => {
   // Read the output later:
   // const content = fs.readFileSync("...");
-  console.log(111,stats);
+  console.log(111, stats);
 });
 
 // add hot-reload related code to entry chunks
@@ -30,6 +30,7 @@ module.exports = merge(baseWebpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       "process.env": config.dev.env,
+      "global.GENTLY": false,
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
@@ -53,9 +54,9 @@ module.exports = merge(baseWebpackConfig, {
     historyApiFallback: {
       verbose: true,
       rewrites: [
-        { from: /^\/index\/.*$/, to: '/index.html'},
-        {from: /^\/one\/.*$/, to: '/one.html'}
-      ]
-    }
-  }
+        { from: /^\/index\/.*$/, to: "/index.html" },
+        { from: /^\/one\/.*$/, to: "/one.html" },
+      ],
+    },
+  },
 });
