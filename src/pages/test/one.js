@@ -1,9 +1,6 @@
 import Vue from "vue";
 // import preview from './one.vue'
-import One from "./index.vue";
-
-import store from "../../store";
-import router from "../../router/one";
+import One from "./one.vue";
 //Muse-UI
 import MuseUI from "muse-ui";
 import "muse-ui/dist/muse-ui.css";
@@ -12,7 +9,17 @@ Vue.use(MuseUI);
 //云数据库
 import lean from "../../utils/leancloud storage";
 import { createStore } from "../../store/index";
+//iView-UI
+import iView from "iview";
+Vue.use(iView);
 
+//Mint-UI
+import { Toast, Indicator } from "mint-ui";
+// import "mint-ui/lib/style.css";
+Vue.prototype.$toast = Toast;
+Vue.prototype.$indicator = Indicator;
+import mint from "mint-ui";
+Vue.use(mint);
 Vue.prototype.$lean = lean;
 Vue.config.productionTip = false;
 
@@ -25,15 +32,18 @@ Vue.config.productionTip = false;
 //   components: { One }
 //   // render: h => h(preview)
 // })
+global.$lean = lean;
+
 global._Vue = {
   $store: createStore(),
 };
 export function createApp() {
   const store = createStore();
+
   const app = new Vue({
     store,
     // 根实例简单的渲染应用程序组件。
-    render: (h) => h(App),
+    render: (h) => h(One),
   });
   return { app, store };
 }

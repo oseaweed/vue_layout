@@ -45,6 +45,7 @@ let baseRender = (renderer, pageName, req, res) => {
       res.status(500).end("Internal Server Error");
       return;
     }
+    // console.log(2233, html);
     res.send(html);
     res.end();
   });
@@ -58,8 +59,10 @@ if (isProd) {
   for (let pageName in router) {
     if (router[pageName].template) {
       template = fs.readFileSync(router[pageName].template, "utf-8");
+      console.log(22, template);
     } else {
       template = uniTpl;
+      console.log(22, template);
     }
     const bundle = require(`../dist/server/${pageName}/vue-ssr-server-bundle.json`);
     // The client manifests are optional, but it allows the renderer

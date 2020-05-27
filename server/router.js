@@ -10,7 +10,7 @@ module.exports = {
   },
   page2: {
     url: "/page2.html", //访问的url规则，用于express的get
-    dir: "./src/pages/index", //页面目录，默认有app.js作为入口
+    dir: "./src/pages/test", //页面目录，默认有app.js作为入口
     title: "Page2", //生成html的title
   },
 };

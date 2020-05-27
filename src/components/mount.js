@@ -23,7 +23,7 @@ var mount = function (id, _component) {
           return data;
         },
         template: _component.template,
-        el: document.getElementById(id),
+        // el: document.getElementById(id),
         mounted() {
           this.$el.id = id;
           if (component) {
@@ -34,7 +34,7 @@ var mount = function (id, _component) {
           let info = _Vue.$store.state.currentComponent.info;
           if (!info) this.$el.click();
         },
-      });
+      }).$mount(id);
       resolve(vm);
     }, 200);
   });

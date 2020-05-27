@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import lean from "../utils/leancloud storage";
+
 import {
   getTemplate,
   getSlotContent,
@@ -44,6 +46,13 @@ export function createStore() {
 
         //保存本地
         localStorage.store = JSON.stringify(state);
+      },
+      setMsg(state, msg) {
+        state.msg = msg;
+      },
+      setCom(state, component) {
+        console.log(321, component);
+        state.components = component;
       },
     },
     actions: {
@@ -129,12 +138,66 @@ export function createStore() {
       setData({ commit }, msg) {
         commit("setMsg", msg); //调用mutations的方法
       },
-    },
-    //mutations做所有数据的修改
-    mutations: {
-      setMsg(state, msg) {
-        state.msg = msg;
+
+      getLeanData({ commit }, id) {
+        console.log(123123);
+        const aa = [
+          {
+            template:
+              '<mu-appbar data-component-active tabIndex="0" \n                    title="App Bar"\n>\n                    \n                </mu-appbar>',
+            attributes: {
+              title: { type: "text", value: "App Bar" },
+              zDepth: { type: "slider", value: 0, max: 5, min: 0, step: 1 },
+              titleClass: { type: "text", value: "" },
+              class: { type: "text", value: "" },
+            },
+            slots: { left: [], right: [], default: [] },
+            slot: "",
+            info: { name: "App Bar", ui: "Muse-UI", id: "525d2d68-92b2" },
+            position: {
+              offsetLeft: 0,
+              offsetRight: 611,
+              offsetTop: 0,
+              offsetBottom: 64,
+            },
+          },
+          {
+            template:
+              '<mu-float-button data-component-active tabIndex="0" \n                        icon="add"\n>\n                        \n                    </mu-float-button>',
+            attributes: {
+              icon: { type: "icon", value: "add" },
+              disabled: { type: "boolean", value: false },
+              type: {
+                type: "selection",
+                value: "",
+                items: ["submit", "button", "reset"],
+              },
+              href: { type: "text", value: "" },
+              target: {
+                type: "selection",
+                value: "",
+                items: ["_blank", "self", "_parent", "_top"],
+              },
+              tag: { type: "text", value: "" },
+              exact: { type: "boolean", value: false },
+              secondary: { type: "boolean", value: false },
+              mini: { type: "booleam", value: false },
+              backgroundColor: { type: "color", value: "" },
+              class: { type: "text", value: "" },
+            },
+            slots: { default: [] },
+            slot: "",
+            info: {
+              name: "Floating Action Button",
+              ui: "Muse-UI",
+              id: "1c3beafb-8127",
+            },
+          },
+        ];
+        console.log(111);
+        commit("setCom", aa);
       },
     },
+    //mutations做所有数据的修改
   });
 }
